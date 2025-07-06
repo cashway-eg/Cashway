@@ -1,0 +1,60 @@
+
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <title>لوحة كاشواي</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        body { font-family: Tahoma, sans-serif; background: #e0f7fa; text-align: center; padding: 40px; }
+        h2 { color: #00796b; }
+        .card { background: white; padding: 20px; margin: 20px auto; width: 90%; max-width: 400px; border-radius: 8px; box-shadow: 0 0 10px #ccc; }
+        button { padding: 10px 20px; background: #00796b; color: white; border: none; border-radius: 5px; font-size: 16px; cursor: pointer; margin-top: 10px; }
+        button:hover { background: #004d40; }
+    </style>
+</head>
+<body>
+    <h2>أهلاً، <span id="user"></span> 👋</h2>
+    <div class="card">
+        <h3>رصيدك الحالي: <span id="points">0</span> نقطة</h3>
+    </div>
+    <div class="card">
+        <h3>🎯 مهمة اليوم</h3>
+        <button onclick="addPoints(5)">نفّذ المهمة +5 نقاط</button>
+    </div>
+    <div class="card">
+        <h3>📩 دعوة صديق</h3>
+        <button onclick="addPoints(2)">دعوة وهمية +2 نقطة</button>
+    </div>
+    <div class="card">
+        <h3>💸 سحب الأرباح</h3>
+        <button onclick="withdraw()">اسحب أرباحك</button>
+    </div>
+
+    <script>
+        const user = localStorage.getItem('cashway_user') || "مستخدم";
+        let points = parseInt(localStorage.getItem('cashway_points') || "0");
+
+        document.getElementById("user").innerText = user;
+        document.getElementById("points").innerText = points;
+
+        function addPoints(p) {
+            points += p;
+            localStorage.setItem('cashway_points', points);
+            document.getElementById("points").innerText = points;
+            alert("تم إضافة " + p + " نقطة!");
+        }
+
+        function withdraw() {
+            if (points >= 10) {
+                alert("تم إرسال طلب سحب الأرباح! ✅");
+                points = 0;
+                localStorage.setItem('cashway_points', points);
+                document.getElementById("points").innerText = points;
+            } else {
+                alert("يجب أن يكون لديك على الأقل 10 نقاط.");
+            }
+        }
+    </script>
+</body>
+</html>
